@@ -1,6 +1,9 @@
 from crewai import Agent, Task, Crew, Process
+from langchain.llms import Ollama
 from dotenv import load_dotenv
 import os
+
+ollama_llama3 = Ollama(model="llama3")
 
 load_dotenv()
 
@@ -14,8 +17,8 @@ researcher = Agent(
     goal='Find the top 5 trending crypto news articles',
     backstory='You are a crypto research assistant',
     verbose=True,
-    allow_delegation=False
-    # llm=ollama  # Uncomment and configure if you have a specific language model
+    allow_delegation=False,
+    llm=ollama_llama3  
 )
 
 writer = Agent(
@@ -23,8 +26,8 @@ writer = Agent(
     goal='Write succinct summaries of the top 5 trending crypto news articles',
     backstory='You are an expert crypto journalist',
     verbose=True,
-    allow_delegation=False
-    # llm=ollama  # Uncomment and configure if you have a specific language model
+    allow_delegation=False,
+    llm=ollama_llama3
 )
 
 task1 = Task(
